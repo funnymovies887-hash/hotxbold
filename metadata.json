@@ -1,0 +1,6 @@
+{
+  "name": "Content Unlocker & Video Preview",
+  "description": "Premium video preview gateway with age verification, advertising smartlinks, and automated 30-second content redirection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
