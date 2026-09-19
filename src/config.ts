@@ -24,7 +24,7 @@ export interface AppConfig {
 
 export const DEFAULT_CONFIG: AppConfig = {
   // আপনার দেওয়া বিজ্ঞাপনের লিংক
-  adUrl: 'https://data527.click/3421c9af17a0973e4bbb/537ad80f08/?placementName=default',
+  adUrl: 'https://splendid-garage.com/cKshzF',
   
   // ৩০ সেকেন্ড টাইমার
   adTimerSeconds: 30,

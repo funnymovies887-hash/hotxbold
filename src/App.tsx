@@ -7,7 +7,7 @@ import { LockedPlayer } from './components/LockedPlayer';
 import { UnlockedPlayer } from './components/UnlockedPlayer';
 import { ContentConfigModal } from './components/ContentConfigModal';
 
-const STORAGE_CONFIG_KEY = 'video_locker_config_v2';
+const STORAGE_CONFIG_KEY = 'video_locker_config_v3';
 const AGE_STORAGE_KEY = 'premium_video_age_confirmed';
 
 export default function App() {
@@ -17,6 +17,9 @@ export default function App() {
       const saved = localStorage.getItem(STORAGE_CONFIG_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
+        if (!parsed.adUrl || parsed.adUrl.includes('data527.click')) {
+          parsed.adUrl = DEFAULT_CONFIG.adUrl;
+        }
         // Ensure telegram channel is preserved if previous had placeholder
         if (!parsed.mainContentRedirectUrl || parsed.mainContentRedirectUrl.includes('example.com')) {
           parsed.mainContentRedirectUrl = 'https://t.me/hotxbold';
