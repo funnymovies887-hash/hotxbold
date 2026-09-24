@@ -23,8 +23,8 @@ export interface AppConfig {
 }
 
 export const DEFAULT_CONFIG: AppConfig = {
-  // আপনার দেওয়া বিজ্ঞাপনের লিংক
-  adUrl: 'https://splendid-garage.com/cKshzF',
+  // আপনার দেওয়া বিজ্ঞাপনের স্মার্টলিংক
+  adUrl: 'https://omg10.com/4/11869572',
   
   // ৩০ সেকেন্ড টাইমার
   adTimerSeconds: 30,

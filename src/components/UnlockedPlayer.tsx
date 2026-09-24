@@ -23,20 +23,35 @@ export const UnlockedPlayer: React.FC<UnlockedPlayerProps> = ({
   useEffect(() => {
     if (mode === 'redirect') {
       setRedirectAttempted(true);
-      // Attempt redirect
+      // Attempt multiple redirect strategies for browser & iframe compatibility
       try {
-        // Try direct top-level redirect or window.open
+        window.location.assign(redirectUrl);
+      } catch (e) {
+        console.warn('window.location.assign blocked:', e);
+      }
+
+      try {
         if (window.top && window.top !== window) {
           window.top.location.href = redirectUrl;
         } else {
           window.location.href = redirectUrl;
         }
       } catch (e) {
-        console.warn('Iframe or policy prevented top navigation, attempting window.open:', e);
+        console.warn('Iframe policy blocked navigation, attempting popup/tab redirect:', e);
         try {
-          window.open(redirectUrl, '_blank', 'noopener,noreferrer');
+          const w = window.open(redirectUrl, '_blank', 'noopener,noreferrer');
+          if (!w) {
+            // Popup blocker might intercept background window.open
+            const link = document.createElement('a');
+            link.href = redirectUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
         } catch (err) {
-          console.error('Redirect failed:', err);
+          console.error('All automatic redirect attempts failed:', err);
         }
       }
     }

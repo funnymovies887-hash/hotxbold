@@ -6,8 +6,9 @@ import { VideoModal } from './components/VideoModal';
 import { LockedPlayer } from './components/LockedPlayer';
 import { UnlockedPlayer } from './components/UnlockedPlayer';
 import { ContentConfigModal } from './components/ContentConfigModal';
+import { NativeBanner } from './components/NativeBanner';
 
-const STORAGE_CONFIG_KEY = 'video_locker_config_v3';
+const STORAGE_CONFIG_KEY = 'video_locker_config_v4';
 const AGE_STORAGE_KEY = 'premium_video_age_confirmed';
 
 export default function App() {
@@ -17,7 +18,7 @@ export default function App() {
       const saved = localStorage.getItem(STORAGE_CONFIG_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (!parsed.adUrl || parsed.adUrl.includes('data527.click')) {
+        if (!parsed.adUrl || parsed.adUrl.includes('data527.click') || parsed.adUrl.includes('splendid-garage')) {
           parsed.adUrl = DEFAULT_CONFIG.adUrl;
         }
         // Ensure telegram channel is preserved if previous had placeholder
@@ -249,41 +250,8 @@ export default function App() {
           )}
         </div>
 
-        {/* Adsterra Native Banner Slot */}
-        <div className="w-full max-w-3xl my-6 flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-900/60 border border-white/10 p-3 min-h-[90px]">
-          <span className="text-[10px] text-neutral-500 font-mono uppercase tracking-wider mb-2">
-            Sponsored Ad
-          </span>
-          <div id="container-2d0c416f69350dd3ad0453973754293a" className="w-full text-center">
-            {/* Native Banner Fallback / Clickable Banner */}
-            <a
-              href={config.adUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-3 rounded-xl bg-gradient-to-r from-rose-950/40 via-neutral-900 to-rose-950/40 border border-rose-500/20 hover:border-rose-500/50 transition-all text-center"
-            >
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="flex items-center gap-3 text-left">
-                  <div className="w-10 h-10 rounded-lg bg-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
-                    <Sparkles className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-white group-hover:text-rose-400 transition-colors">
-                      Exclusive 18+ Sponsor Offers
-                    </div>
-                    <div className="text-[11px] text-neutral-400">
-                      Click to unlock high-speed VIP streaming
-                    </div>
-                  </div>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 group-hover:bg-rose-500 text-white font-bold text-xs shrink-0 shadow">
-                  <span>Visit Sponsor</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
+        {/* Native Banner Slot */}
+        <NativeBanner sponsorUrl={config.adUrl} />
 
         {/* CTA Unlock Button Area */}
         <section className="w-full max-w-md mt-2 flex flex-col items-center text-center">
